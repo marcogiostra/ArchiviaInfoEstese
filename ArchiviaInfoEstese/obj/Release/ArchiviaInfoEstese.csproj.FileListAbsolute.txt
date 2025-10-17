@@ -1,0 +1,13 @@
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\bin\Release\ArchiviaInfoEstese.exe.config
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\bin\Release\ArchiviaInfoEstese.exe
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\bin\Release\ArchiviaInfoEstese.pdb
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\bin\Release\Newtonsoft.Json.dll
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\bin\Release\Newtonsoft.Json.xml
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.csproj.AssemblyReference.cache
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.FormMain.resources
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.Properties.Resources.resources
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.csproj.GenerateResource.cache
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.csproj.CoreCompileInputs.cache
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\Archivia.D6331637.Up2Date
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.exe
+D:\svil_Giosh\008_ArchiviaInfoEstese\ArchiviaInfoEstese\ArchiviaInfoEstese\obj\Release\ArchiviaInfoEstese.pdb
