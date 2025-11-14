@@ -78,6 +78,8 @@
             // 
             // cmbCategoria
             // 
+            this.cmbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Location = new System.Drawing.Point(89, 61);
@@ -87,8 +89,7 @@
             // 
             // btnSalva
             // 
-            this.btnSalva.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalva.Location = new System.Drawing.Point(603, 60);
             this.btnSalva.Name = "btnSalva";
             this.btnSalva.Size = new System.Drawing.Size(75, 26);
@@ -169,8 +170,7 @@
             // 
             // btnCancella
             // 
-            this.btnCancella.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancella.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancella.Location = new System.Drawing.Point(522, 61);
             this.btnCancella.Name = "btnCancella";
             this.btnCancella.Size = new System.Drawing.Size(75, 26);
