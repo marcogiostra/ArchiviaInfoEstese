@@ -53,7 +53,7 @@ namespace ArchiviaInfoEstese
         private const int EM_FORMATRANGE = 0x439;
 
         [DllImport("user32.dll")]
-         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         private int HundredthInchToTwips(int n) => n * 1440 / 100;
 
@@ -105,7 +105,7 @@ namespace ArchiviaInfoEstese
 
             if (!elencoCategorie.Any())
             {
-                
+
                 SalvaCategorie();
             }
 
@@ -134,7 +134,7 @@ namespace ArchiviaInfoEstese
                 newID = 0;
                 foreach (Info i in elencoInfo)
                 {
-                    if(i.ID > newID)
+                    if (i.ID > newID)
                     {
                         newID = i.ID;
                     }
@@ -168,12 +168,14 @@ namespace ArchiviaInfoEstese
         #region Stampa
         private int PrintRichText(int charFrom, int charTo, PrintPageEventArgs e)
         {
-            FORMATRANGE fmtRange;
+            FORMATRANGE fmtRange = new FORMATRANGE();
+
             fmtRange.chrg.cpMin = charFrom;
             fmtRange.chrg.cpMax = charTo;
 
-            fmtRange.hdc = e.Graphics.GetHdc();
-            fmtRange.hdcTarget = e.Graphics.GetHdc();
+            IntPtr hdc = e.Graphics.GetHdc();
+            fmtRange.hdc = hdc;
+            fmtRange.hdcTarget = hdc;
 
             fmtRange.rc = new RECT
             {
@@ -191,17 +193,19 @@ namespace ArchiviaInfoEstese
                 Right = HundredthInchToTwips(e.PageBounds.Right)
             };
 
-            IntPtr wParam = new IntPtr(1);
             IntPtr lParam = Marshal.AllocCoTaskMem(Marshal.SizeOf(fmtRange));
             Marshal.StructureToPtr(fmtRange, lParam, false);
 
-            IntPtr res = SendMessage(richTextBox.Handle, EM_FORMATRANGE, wParam, lParam);
+            // Stampa
+            IntPtr res = SendMessage(richTextBox.Handle, EM_FORMATRANGE, new IntPtr(1), lParam);
 
+            // Cleanup
             Marshal.FreeCoTaskMem(lParam);
-            e.Graphics.ReleaseHdc(fmtRange.hdc);
+            e.Graphics.ReleaseHdc(hdc);
 
-            return res.ToInt32();
+            return res.ToInt32(); // prossimo char da stampare
         }
+
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -228,7 +232,7 @@ namespace ArchiviaInfoEstese
                 richTextBox.SelectionFont = new Font(fontName, fontSize, style);
             }
         }
-        
+
         private void SetFontSafe(RichTextBox rtb, string fontName, float? fontSize = null, FontStyle? fontStyle = null, bool applyToAll = false)
         {
             if (applyToAll)
@@ -277,7 +281,7 @@ namespace ArchiviaInfoEstese
             FontStyle newStyle = current.Style ^ style;
             SetFontSafe(richTextBox, null, null, newStyle);
         }
-  
+
         #endregion f()
 
         #region RITCHETBOX
@@ -379,7 +383,7 @@ namespace ArchiviaInfoEstese
         private void btnCancella_Click(object sender, EventArgs e)
         {
             txtID.Text = string.Empty;
-            richTextBox.Clear(); 
+            richTextBox.Clear();
             txtTitolo.Text = string.Empty;
         }
         private void btnSalva_Click(object sender, EventArgs e)
@@ -475,6 +479,10 @@ namespace ArchiviaInfoEstese
         {
             richTextBox.SelectionAlignment = HorizontalAlignment.Center;
         }
+        private void tsJustify_Click(object sender, EventArgs e)
+        {
+            JustifySelection(richTextBox);
+        }
 
         private void tsbRight_Click(object sender, EventArgs e)
         {
@@ -520,7 +528,7 @@ namespace ArchiviaInfoEstese
 
         private void tscSize_SelectedIndexChanged(object sender, EventArgs e)
         {
- 
+
 
             float fontSize = float.Parse(tscSize.SelectedItem.ToString());
             string fontName = richTextBox.SelectionFont?.FontFamily.Name ?? "Microsoft Sans Serif";
@@ -531,7 +539,10 @@ namespace ArchiviaInfoEstese
 
         private void richTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             if (!e.Control) return;
+
+            bool handled = true;
 
             if (!e.Control) return;
             switch (e.KeyCode)
@@ -544,54 +555,155 @@ namespace ArchiviaInfoEstese
                 case Keys.L: richTextBox.SelectionAlignment = HorizontalAlignment.Left; break;
                 case Keys.E: richTextBox.SelectionAlignment = HorizontalAlignment.Center; break;
                 case Keys.R: richTextBox.SelectionAlignment = HorizontalAlignment.Right; break;
+                default: handled = false; break;
             }
-            e.SuppressKeyPress = true;
- 
+            if (handled)
+                e.SuppressKeyPress = true;
+            */
+            if (!e.Control) return;
+
+            bool handled = true;
+
+            // CTRL + SHIFT
+            if (e.Control && e.Shift)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.L:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                        break;
+
+                    case Keys.E:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+                        break;
+
+                    case Keys.R:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Right;
+                        break;
+
+                    case Keys.J:
+                        JustifySelection(richTextBox);
+                        break;
+
+                    default:
+                        handled = false;
+                        break;
+                }
+            }
+            // SOLO CTRL
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.B:
+                        ToggleFont(FontStyle.Bold);
+                        break;
+
+                    case Keys.I:
+                        ToggleFont(FontStyle.Italic);
+                        break;
+
+                    case Keys.U:
+                        ToggleFont(FontStyle.Underline);
+                        break;
+
+                    case Keys.A:
+                        richTextBox.SelectAll();
+                        break;
+
+                    case Keys.Z:
+                        if (richTextBox.CanUndo) richTextBox.Undo();
+                        break;
+
+                    case Keys.Y:
+                        if (richTextBox.CanRedo) richTextBox.Redo();
+                        break;
+
+                    case Keys.L:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                        break;
+
+                    case Keys.E:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+                        break;
+
+                    case Keys.R:
+                        richTextBox.SelectionAlignment = HorizontalAlignment.Right;
+                        break;
+
+                    default:
+                        handled = false;
+                        break;
+                }
+            }
+
+            if (handled)
+                e.SuppressKeyPress = true;
         }
 
 
         #endregion ZONA SINISTRA
 
-  
-    }
 
-    public static class InputBox
-    {
-        public static string Show(string prompt, string title = "")
+        private void JustifySelection(RichTextBox rtb)
         {
-            Form form = new Form()
+            if (rtb.SelectionLength == 0)
+                return;
+
+            string rtf = rtb.SelectedRtf;
+
+            // Inserisce il comando di giustificazione
+            rtf = rtf.Replace(@"\ql", @"\qj")
+                        .Replace(@"\qr", @"\qj")
+                        .Replace(@"\qc", @"\qj");
+
+            // Se non c'è, lo aggiunge
+            if (!rtf.Contains(@"\qj"))
+                rtf = rtf.Replace(@"{\rtf1", @"{\rtf1\qj");
+
+            rtb.SelectedRtf = rtf;
+        }
+
+        public static class InputBox
+        {
+            public static string Show(string prompt, string title = "")
             {
-                Width = 400,
-                Height = 150,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = title,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimizeBox = false,
-                MaximizeBox = false
-            };
+                Form form = new Form()
+                {
+                    Width = 400,
+                    Height = 150,
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    Text = title,
+                    StartPosition = FormStartPosition.CenterScreen,
+                    MinimizeBox = false,
+                    MaximizeBox = false
+                };
 
-            Label lbl = new Label() { Left = 10, Top = 10, Text = prompt, AutoSize = true };
-            TextBox txt = new TextBox() { Left = 10, Top = 40, Width = 360 };
-            Button btnOk = new Button() { Text = "OK", Left = 200, Width = 80, Top = 70, DialogResult = DialogResult.OK };
-            Button btnCancel = new Button() { Text = "Cancel", Left = 290, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
+                Label lbl = new Label() { Left = 10, Top = 10, Text = prompt, AutoSize = true };
+                TextBox txt = new TextBox() { Left = 10, Top = 40, Width = 360 };
+                Button btnOk = new Button() { Text = "OK", Left = 200, Width = 80, Top = 70, DialogResult = DialogResult.OK };
+                Button btnCancel = new Button() { Text = "Cancel", Left = 290, Width = 80, Top = 70, DialogResult = DialogResult.Cancel };
 
-            form.Controls.Add(lbl);
-            form.Controls.Add(txt);
-            form.Controls.Add(btnOk);
-            form.Controls.Add(btnCancel);
+                form.Controls.Add(lbl);
+                form.Controls.Add(txt);
+                form.Controls.Add(btnOk);
+                form.Controls.Add(btnCancel);
 
-            form.AcceptButton = btnOk;
-            form.CancelButton = btnCancel;
+                form.AcceptButton = btnOk;
+                form.CancelButton = btnCancel;
 
-            DialogResult result = form.ShowDialog();
-            if (result == DialogResult.OK)
-                if (!string.IsNullOrEmpty(txt.Text.Trim()))
-                    return txt.Text.Trim();
+                DialogResult result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                    if (!string.IsNullOrEmpty(txt.Text.Trim()))
+                        return txt.Text.Trim();
+                    else
+                        return null;
                 else
                     return null;
-            else
-                return null;
+            }
         }
+
+  
     }
 }
 

@@ -37,9 +37,11 @@
             this.tsbBold = new System.Windows.Forms.ToolStripButton();
             this.tsbItalic = new System.Windows.Forms.ToolStripButton();
             this.tsbUnderline = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsLeft = new System.Windows.Forms.ToolStripButton();
             this.tsCenter = new System.Windows.Forms.ToolStripButton();
             this.tsbRight = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tscFont = new System.Windows.Forms.ToolStripComboBox();
             this.tscSize = new System.Windows.Forms.ToolStripComboBox();
             this.tsbColor = new System.Windows.Forms.ToolStripButton();
@@ -59,8 +61,7 @@
             this.lstInfo = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbCategoriaArchivio = new System.Windows.Forms.ComboBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsJustify = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,6 +112,7 @@
             this.tsLeft,
             this.tsCenter,
             this.tsbRight,
+            this.tsJustify,
             this.toolStripSeparator5,
             this.tscFont,
             this.tscSize,
@@ -180,6 +182,11 @@
             this.tsbUnderline.Text = "toolStripButton3";
             this.tsbUnderline.Click += new System.EventHandler(this.tsbUnderline_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // tsLeft
             // 
             this.tsLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -209,6 +216,11 @@
             this.tsbRight.Size = new System.Drawing.Size(23, 22);
             this.tsbRight.Text = "toolStripButton8";
             this.tsbRight.Click += new System.EventHandler(this.tsbRight_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // tscFont
             // 
@@ -399,15 +411,15 @@
             this.cmbCategoriaArchivio.TabIndex = 4;
             this.cmbCategoriaArchivio.SelectedIndexChanged += new System.EventHandler(this.cmbCategoriaArchivio_SelectedIndexChanged);
             // 
-            // toolStripSeparator2
+            // tsJustify
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.tsJustify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsJustify.Image = global::ArchiviaInfoEstese.Properties.Resources.justifyalignament;
+            this.tsJustify.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsJustify.Name = "tsJustify";
+            this.tsJustify.Size = new System.Drawing.Size(23, 22);
+            this.tsJustify.Text = "toolStripButton1";
+            this.tsJustify.Click += new System.EventHandler(this.tsJustify_Click);
             // 
             // FormMain
             // 
@@ -468,6 +480,7 @@
         private System.Windows.Forms.ToolStripComboBox tscSize;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton tsJustify;
     }
 }
 
